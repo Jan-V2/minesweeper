@@ -7,8 +7,6 @@ let squares_y = canvas.height / square_size;
 let game_ended = false;
 
 
-//todo winning condition
-
 function get_board_state_array() {
     // .fill has a bug if you do a .fill inside a .fill
     let ret = Array();
