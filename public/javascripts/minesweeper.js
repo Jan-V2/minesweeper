@@ -68,7 +68,7 @@ function Draw() {
     let reveal_board = () => {
         for (let i in _.range(checked_squares.length)){
             for (let j in _.range(checked_squares[i].length) ){
-                if(!checked_squares[i][j]){
+                if(!checked_squares[   i][j]){
                     if(game_board[i][j]){
                        _this.draw_mine(i, j)
                     }else{
@@ -161,14 +161,13 @@ let check_sorrounding = (coord) => {
         return result
     };
 
-    if(chk(x+1,y) === true){add()}else{push_coord(get_coord(x+1, y))}
-    if(chk(x ,y+1) === true){add()}else{push_coord(get_coord(x, y+1))}
-    if(chk(x-1 ,y) === true){add()}else{push_coord(get_coord(x-1, y))}
-    if(chk(x ,y-1) === true){add()}else{push_coord(get_coord(x, y-1))}
-    if(chk(x+1 ,y+1) === true){add()}else{push_coord(get_coord(x+!1, y+1))}
-    if(chk(x-1 ,y-1) === true){add()}else{push_coord(get_coord(x-1, y-1))}
-    if(chk(x+1 ,y-1) === true){add()}else{push_coord(get_coord(x+1, y-1))}
-    if(chk(x-1 ,y+1) === true){add()}else{push_coord(get_coord(x-1, y+1))}
+    for (let i = -1; i < 2; i++){
+        for (let j = -1; j < 2; j++){
+            if(!(i === 0 && j === 0)){
+                if(chk(x+i,y+j) === true){add()}else{push_coord(get_coord(x+i, y+j))}
+            }
+        }
+    }
     return ret
 };
 
