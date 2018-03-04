@@ -18,7 +18,7 @@ function get_board_state_array() {
 
 let game_board = get_board_state_array();
 let checked_squares = get_board_state_array();
-let mines_percentage = 0.10;
+let mines_percentage = 0.20;
 
 
 drawing.fillStyle = "#DFDFDF";
@@ -51,13 +51,19 @@ function Draw() {
     let _this = this;
     let draw_square = (x, y) => drawing.fillRect((x * square_size) + 1, (y* square_size) + 1, square_size - 2, square_size - 2);
     let draw_circle = (x, y) => {
+        drawing.fillStyle = "#000000";
         let offset = Math.floor(square_size /2);
         drawing.moveTo(x, y);
         drawing.arc(x * square_size + offset, y* square_size + offset , Math.floor(square_size / 4), 0, 2 * Math.PI, false);
         drawing.fill();
     };
     let draw_end_game_text = (text) => {
-
+        let fontsize = 125;
+        drawing.font= fontsize + "px Arial";
+        drawing.fillStyle = "#000000";
+        drawing.textAlign = "center";
+        drawing.fillText(text , canvas.width / 2, canvas.height / 2 + (fontsize /4)  );
+        drawing.fill()
     };
 
     let reveal_board = () => {
@@ -174,7 +180,7 @@ function reveal_square(x, y) {
         if(!checked_squares[coord.x][coord.y]) {
             let coord_result = check_sorrounding(coord);
             //console.log(coord.x.toString() + " " + coord.y.toString() + " " + coord_result.count.toString());
-            console.log(queue.getLength());
+            //console.log(queue.getLength());
             if (coord_result.count === 0) {
                 coord_result.coords.forEach((e) => {
                     if(checked_squares[e.x][e.y] === false){
@@ -188,7 +194,7 @@ function reveal_square(x, y) {
             }
             checked_squares[coord.x][coord.y] = true
         }else{
-            console.log("failed check")
+            //console.log("failed check")
         }
     };
     while (!queue.isEmpty()){
@@ -200,7 +206,7 @@ canvas.addEventListener('click', (event) => {
     if(!game_ended){
         let x = Math.floor(event.pageX / square_size)-1;
         let y = Math.floor(event.pageY / square_size)-1;
-        console.log(x.toString() + " " + y.toString()+ " " + game_board[x][y].toString());
+        //console.log(x.toString() + " " + y.toString()+ " " + game_board[x][y].toString());
         if(game_board[x][y]){
             draw.draw_game_lost();
             game_ended = true
