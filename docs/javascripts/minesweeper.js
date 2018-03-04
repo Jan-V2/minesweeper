@@ -1,7 +1,7 @@
 let canvas = document.getElementById("mycanvas");
 let drawing = canvas.getContext("2d");
 
-let square_size = 50;
+let square_size = 40;
 let squares_x = canvas.width / square_size;
 let squares_y = canvas.height / square_size;
 let game_ended = false;
@@ -58,7 +58,7 @@ function Draw() {
         drawing.fill();
     };
     let draw_end_game_text = (text) => {
-        let fontsize = 125;
+        let fontsize = 90;
         drawing.font= fontsize + "px Arial";
         drawing.fillStyle = "#000000";
         drawing.textAlign = "center";
@@ -204,8 +204,10 @@ function reveal_square(x, y) {
 
 canvas.addEventListener('click', (event) => {
     if(!game_ended){
-        let x = Math.floor(event.pageX / square_size)-1;
-        let y = Math.floor(event.pageY / square_size)-1;
+        let bounds =  canvas.getBoundingClientRect();
+        let x = Math.floor((event.pageX - bounds.left)/ square_size);
+        let y = Math.floor((event.pageY - bounds.top)/ square_size);
+
         //console.log(x.toString() + " " + y.toString()+ " " + game_board[x][y].toString());
         if(game_board[x][y]){
             draw.draw_game_lost();
